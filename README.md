@@ -1,18 +1,28 @@
 # Test technique PHP
 
-Cet exercice consiste en un modèle qui permet à un utilisateur de faire des demandes administratives pour obtenir une carte nationale d'identité ou un passeport.
+## Objectif
 
-L'implémentation actuelle est partielle et vous devez la compléter afin de respecter les règles suivantes :
-- Un utilisateur doit pouvoir enregistrer ses empreintes
-    - modélisez cette donnée
-- Pour faire une demande il faut toutes les empreintes de l'utilisateur
-    - rajoutez cette information dans les arguments de l'API de demande administrative
-- Un utilisateur ne peut pas faire une demande s'il a déjà une pièce d'identité
+Permettre à un utilisateur de faire une demande administrative pour obtenir une carte nationale d'identité ou un passeport.
 
-La commande `make test` doit passer.
+## Implémentation
 
-## Installation du projet
+Complétez le code existant afin de pouvoir respecter les règles suivantes :
+- Un utilisateur doit pouvoir enregistrer ses empreintes (modèle à créer).
+- Toutes les empreintes d'un utilisateur sont nécessaires pour faire une demande (ajouter cette information dans les arguments de l'API de demande administrative).
+- Il est impossible de faire une demande si l'utilisateur dispose déjà d'une pièce d'identité.
+
+## Attendu
+
+Faire passer au minimum tous les tests existants.
+
+## Installation
 
 ```sh
 make install
+```
+
+## Lancement des tests
+
+```sh
+make test
 ```
