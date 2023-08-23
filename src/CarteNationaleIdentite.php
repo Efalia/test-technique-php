@@ -1,21 +1,9 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App;
 
-use Ramsey\Uuid\UuidInterface;
-
-final class CarteNationaleIdentite
+final class CarteNationaleIdentite extends PièceIdentité
 {
-    private UuidInterface $id;
-
-    public function __construct(UuidInterface $id)
-    {
-        $this->id = $id;
-    }
-
-    public function toString(): string
-    {
-        return $this->id->toString();
-    }
 }
