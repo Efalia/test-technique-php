@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d528dbed6c755a41c5a78c1e024c1916",
+    "content-hash": "8b358a359985e5c509e26eb4ac9443eb",
     "packages": [
         {
             "name": "brick/math",
@@ -60,6 +60,68 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "innmind/immutable",
+            "version": "4.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Innmind/Immutable.git",
+                "reference": "16b1fd2cb01a440b240721585abbf5354d5463af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Innmind/Immutable/zipball/16b1fd2cb01a440b240721585abbf5354d5463af",
+                "reference": "16b1fd2cb01a440b240721585abbf5354d5463af",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.2"
+            },
+            "conflict": {
+                "innmind/black-box": "<5.0|~6.0"
+            },
+            "provide": {
+                "innmind/black-box-sets": "5.0"
+            },
+            "require-dev": {
+                "innmind/black-box": "~5.0",
+                "innmind/coding-standard": "~2.0",
+                "phpunit/phpunit": "~10.0",
+                "vimeo/psalm": "~5.6"
+            },
+            "suggest": {
+                "innmind/black-box": "For property based testing"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Innmind\\Immutable\\": "src/",
+                    "Fixtures\\Innmind\\Immutable\\": "fixtures/",
+                    "Properties\\Innmind\\Immutable\\": "properties/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Baptiste Langlade",
+                    "email": "baptiste.langlade@hey.com"
+                }
+            ],
+            "description": "Immutable PHP primitive wrappers",
+            "homepage": "http://github.com/Innmind/Immutable",
+            "keywords": [
+                "immutable",
+                "wrapper"
+            ],
+            "support": {
+                "issues": "http://github.com/Innmind/Immutable/issues",
+                "source": "https://github.com/Innmind/Immutable/tree/4.15.0"
+            },
+            "time": "2023-07-08T13:38:44+00:00"
         },
         {
             "name": "ramsey/collection",
