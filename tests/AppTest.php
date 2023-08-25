@@ -13,8 +13,6 @@ use App\{
     EmpreintesDigitales,
     MotDePasse,
     Passeport,
-    ServiceAdministratif,
-    TypePièceIdentité,
     UtilisateurId,
     UtilisateurService,
 };
@@ -385,4 +383,56 @@ final class AppTest extends TestCase
         );
     }
 
+    public function teste l impossibilité pour un utilisateur d obtenir une pièce d identité si des empreintes digitales sont manquantes()
+    {
+        $utilisateur = new Utilisateur('Toto');
+        $utilisateur->ajouterAdresse();
+
+        $empreintesDigitales = new EmpreintesDigitales();
+        $empreintesDigitales->enregistrerEmpreinte(
+            Doigt::Pouce,
+            new Empreinte
+        );
+        $empreintesDigitales->enregistrerEmpreinte(
+            Doigt::Index,
+            new Empreinte
+        );
+        $empreintesDigitales->enregistrerEmpreinte(
+            Doigt::Majeur,
+            new Empreinte
+        );
+        $empreintesDigitales->enregistrerEmpreinte(
+            Doigt::Annulaire,
+            new Empreinte
+        );
+
+
+        $utilisateur->enregistrerEmpreintesDigitales(
+            $empreintesDigitales
+        );
+
+        $utilisateurService = new UtilisateurService();
+        $demandeAdministrative = DemandeAdministrative::actif($utilisateurService);
+        $motDePasse = new MotDePasse;
+
+        $utilisateurId = new UtilisateurId(
+            nomComplet: $utilisateur->nomComplet(),
+            motDePasse: $motDePasse,
+        );
+
+        $utilisateurService->put(
+            $utilisateurId,
+            $utilisateur
+        );
+
+        $créerCarteNationalIdentitéClosure = fn (API $api): CarteNationaleIdentite => $api->créerCarteNationaleIdentité(
+            $motDePasse,
+            $utilisateur->nomComplet(),
+            $utilisateur->adresse(),
+            $utilisateur->empreintesDigitales(),
+        );
+
+        $this->expectException(EmpreinteDigitaleManquante::class);
+        $demandeAdministrative($créerCarteNationalIdentitéClosure);
+    }
 }
