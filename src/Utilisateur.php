@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Exceptions\{
+    AdresseManquante,
+    EmpreinteDigitaleManquante,
+    PieceIdentiteExistante
+};
+
 final class Utilisateur
 {
     /** @var non-empty-string */
@@ -36,6 +42,8 @@ final class Utilisateur
 
     public function enregistrerPièceIdentité(PièceIdentité $pièceIdentité): void
     {
+        $this->guardEnregistrerPièceIdentité();
+
         $this->pièceIdentité = $pièceIdentité;
     }
 
@@ -75,5 +83,24 @@ final class Utilisateur
     public function empreintesDigitales(): ?EmpreintesDigitales
     {
         return $this->empreintesDigitales;
+    }
+
+
+    private function guardEnregistrerPièceIdentité(): void
+    {
+        // 1 seul demande de pièce d'identité possible
+        if ($this->aPièceIdentité()) {
+            throw new PieceIdentiteExistante();
+        }
+
+        // adresse obligatoire
+        if (!$this->adresse()) {
+            throw new AdresseManquante();
+        }
+
+        // empreintes completes obligatoires
+        if (!$this->empreintesDigitales()?->estComplete()) {
+            throw new EmpreinteDigitaleManquante();
+        }
     }
 }

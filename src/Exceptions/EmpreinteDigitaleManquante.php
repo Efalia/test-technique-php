@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DemandeAdministrative\Exceptions;
+namespace App\Exceptions;
 
 class EmpreinteDigitaleManquante extends \Exception
 {

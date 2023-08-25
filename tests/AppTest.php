@@ -18,10 +18,14 @@ use App\{
     UtilisateurId,
     UtilisateurService,
 };
+use App\Exceptions\{
+    AdresseManquante,
+    EmpreinteDigitaleManquante,
+    PieceIdentiteExistante
+};
 use App\DemandeAdministrative\API;
-use App\DemandeAdministrative\Exceptions\AdresseManquante;
-use App\DemandeAdministrative\Exceptions\PieceIdentiteExistante;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class AppTest extends TestCase
 {
@@ -367,4 +371,18 @@ final class AppTest extends TestCase
         $this->assertEquals($user, $utilisateurService->get($userId));
         $this->assertEquals($user, $utilisateurService->get($sameId));
     }
+
+    public function teste l impossibilité d enregistrer une pièce d identité sans validation()
+    {
+        $utilisateur = new Utilisateur('hello');
+
+        $this->expectException(AdresseManquante::class);
+
+        $utilisateur->enregistrerPièceIdentité(
+            new CarteNationaleIdentite(
+                Uuid::uuid4()
+            )
+        );
+    }
+
 }

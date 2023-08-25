@@ -49,8 +49,6 @@ final class API
             $utilisateur->enregistrerEmpreintesDigitales($empreintesDigitales);
         }
 
-        $this->utilisateurValideGuard($utilisateur);
-
         $pièceIdentité = new CarteNationaleIdentite(Uuid::uuid4());
 
         $utilisateur->enregistrerPièceIdentité($pièceIdentité);
@@ -81,31 +79,10 @@ final class API
             $utilisateur->enregistrerEmpreintesDigitales($empreintesDigitales);
         }
 
-        $this->utilisateurValideGuard($utilisateur);
-
         $pièceIdentité = new Passeport(Uuid::uuid4());
 
         $utilisateur->enregistrerPièceIdentité($pièceIdentité);
 
         return $pièceIdentité;
-    }
-
-    private function utilisateurValideGuard(
-        Utilisateur $utilisateur
-    ): void {
-        // 1 seul demande de pièce d'identité possible
-        if ($utilisateur->aPièceIdentité()) {
-            throw new PieceIdentiteExistante();
-        }
-
-        // adresse obligatoire
-        if (!$utilisateur->adresse()) {
-            throw new AdresseManquante();
-        }
-
-        // empreintes completes obligatoires
-        if (!$utilisateur->empreintesDigitales()?->estComplete()) {
-            throw new EmpreinteDigitaleManquante();
-        }
     }
 }
